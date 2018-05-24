@@ -21,9 +21,26 @@ credit_card_balance<-read.csv("./data/credit_card_balance.csv")
 bureau<-read.csv("./data/bureau.csv")
 application_test<-read.csv("./data/application_test.csv")
 
-
 #Checking data for missing values
+df.naCount<-data.frame(sno=numeric(),dataset=character(),columnName=character(),nacount=numeric(),stringsAsFactors = F)
 
+fx.nacount<-function(df.dataset,dataset.name){
+  x<-colSums(is.na(df.dataset))  
+  df.naCountTemp<-data.frame(sno=numeric(),dataset=character(),columnName=character(),nacount=numeric(),stringsAsFactors = F)
+  df.naCountTemp[sno]<-(nrow(df.naCount)+1):(nrow(df.naCount)+nrow(x))
+  df.naCountTemp[dataset]<-dataset.name
+  df.naCountTemp[columnName]<-x[1]
+  df.naCountTemp[nacount]<-x[2]
+  View(df.naCountTemp)
+  
+}
 
+fx.nacount(application_train,"application_train")
+x<-colSums(is.na(application_train))  
+df.naCountTemp[sno]<-(nrow(df.naCount)+1):(nrow(df.naCount)+nrow(x))
+df.naCountTemp[dataset]<-dataset.name
+df.naCountTemp[columnName]<-x[1]
+df.naCountTemp[nacount]<-x[2]
+View(df.naCountTemp)
 
 
