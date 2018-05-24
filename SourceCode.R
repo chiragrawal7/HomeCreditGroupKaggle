@@ -23,7 +23,6 @@ application_test<-read.csv("./data/application_test.csv")
 
 
 #Checking data for missing values
-is.na(application_train)
 
 
 
