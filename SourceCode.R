@@ -7,18 +7,23 @@ if(length(new.packages)) installed.packages(new.packages)
    
 
 #Calling up the libraries
-library(randomForest)
+require(randomForest)
 
-
-#Reading the train data
 
 #Reading the data
-traindata<-read.csv("C:/Users/chiragrawal/Desktop/Kaggle/Home Risk Default/Data/application_train.csv")
-View(traindata)
-str(traindata)
 
-#spliting the train data to build and test the model
+application_train<-read.csv("./data/application_train.csv")
+POS_CASH_balance<-read.csv("./data/POS_CASH_balance.csv")
+bureau_balance<-read.csv("./data/bureau_balance.csv")
+previoius_application<-read.csv("./data/previous_application.csv")
+installment_payments<-read.csv("./data/installments_payments.csv")
+credit_card_balance<-read.csv("./data/credit_card_balance.csv")
+bureau<-read.csv("./data/bureau.csv")
+application_test<-read.csv("./data/application_test.csv")
 
+
+#Checking data for missing values
+is.na(application_train)
 
 
 
