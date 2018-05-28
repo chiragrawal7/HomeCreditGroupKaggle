@@ -6,10 +6,12 @@
 
 
 #Installing the required packages
-list.of.packages<-c("randomForest","RCurl","jsonlite")
+list.of.packages<-c("randomForest","RCurl","jsonlite","DataExplorer")
 new.packages<-list.of.packages[!(list.of.packages %in% install.packages()[,"Package"])]
 if(length(new.packages)) installed.packages(new.packages)
 
+library(randomForest)
+library(DataExplorer)
 
 #Reading the data
 application_train<-read.csv("./data/application_train.csv")
