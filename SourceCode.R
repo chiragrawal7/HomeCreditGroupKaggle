@@ -1,17 +1,20 @@
 
-
 #Installing the required packages
-list.of.packages<-c("randomForest","caTools")
+list.of.packages<-c("randomForest","RCurl","jsonlite")
 new.packages<-list.of.packages[!(list.of.packages %in% install.packages()[,"Package"])]
 if(length(new.packages)) installed.packages(new.packages)
    
-install.packages("caTools")
+# Now we download, install and initialize the H2O package for R.
+install.packages("h2o", type="source", repos="http://h2o-release.s3.amazonaws.com/h2o/rel-wolpert/11/R")
+
 #Calling up the libraries
 require(randomForest)
-require(caTools)
+library(h2o)
+h2o.init()
 
-# 'seting seed'
-set.seed(123)
+set.seed(1234)
+
+h2o
 
 #Reading the data
 
@@ -24,28 +27,18 @@ credit_card_balance<-read.csv("./data/credit_card_balance.csv")
 bureau<-read.csv("./data/bureau.csv")
 application_test<-read.csv("./data/application_test.csv")
 
-
-#Data Exploration
-
-# Doing a sample test using the provided train data -----------------------
-
-#1) Train Dataset : application_train
-
-View(application_train)
-
+#Doing a initial highlevel test by using the available train data
 str(application_train)
 
-  
+#Creating train data & test data from application_train
 
+application_train[,2]<-as.factor(application_train[,2])
 
+dt_train<-sort(sample(nrow(application_train),nrow(application_train)*.7))
+dt_test<-application_train[-dt_train,]
 
-
-
-
-
-
-
-
+rf1<-randomForest(data=dt_train,TARGET~,ntree=200)
+?randomForest
 
 
 
