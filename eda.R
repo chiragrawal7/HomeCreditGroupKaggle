@@ -16,9 +16,6 @@ data.list<-ls()[sapply(ls(), function(x) class(get(x)))== "data.frame"]
   # structure/type of column
 
 
-x<-colnames(application_test$get(1),do.NULL = T,prefix = "col")
-y<-sum(is.na(application_test$get(1)))
-  
 df.eda<-data.frame(dataset=character(),                          #Name of the dataset
                    columnName=character(),                       #Column Name
                    NumberObs=numeric(),                          #No of observation in data sets
@@ -28,20 +25,30 @@ df.eda<-data.frame(dataset=character(),                          #Name of the da
                    IsFactor=logical(),                           # Is it a factor or not
                 stringsAsFactors = F)
 
-?get
-
-#?eapply
-
 initial.eda<-function(df){
-  for(i in ncol(df)){
-      dfname<-deparse(substitute(df))
-      dfObs<-nrow(df)
-      dfcol<-colnames(df[i],do.NULL = T,prefix = "col")
-      dfna<-sum(is.na(df[,i]))  
+  for(i in 1:ncol(df)){
       
-    df.eda[nrow(df.eda)+1,]<-list(dfname,dfcol,dfObs,dfna,dfna/dfObs,class(df) )  
-    
+      df.eda[nrow(df.eda)+1,]<-list(
+                                    deparse(substitute(df)),
+                                    colnames(df[i],do.NULL = T,prefix = "col"),
+                                    nrow(df),
+                                    sum(is.na(df[,i])),
+                                    (sum(is.na(df[,i]))/nrow(df))*100,
+                                    class(df[,i]),
+                                    is.factor(df[,i]) 
+                                    )
+
   }
+  View(df.eda)
 }
 
 
+for(j in 1:length(data.list)){
+    initial.eda(get(data.list[j]))  
+}
+
+View(df.eda)
+
+initial.eda(application_train)
+
+?similar
