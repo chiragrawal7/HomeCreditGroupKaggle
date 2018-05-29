@@ -15,9 +15,3 @@ rf1<-randomForest(data=dt_train,TARGET~,ntree=200)
 
 
 
-
-
-
-
-
-

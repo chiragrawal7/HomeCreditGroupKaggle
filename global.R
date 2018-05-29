@@ -6,9 +6,10 @@
 
 
 #Installing the required packages
-list.of.packages<-c("randomForest","RCurl","jsonlite","DataExplorer")
-new.packages<-list.of.packages[!(list.of.packages %in% install.packages()[,"Package"])]
-if(length(new.packages)) installed.packages(new.packages)
+list.of.packages<-c("randomForest","RCurl","jsonlite","DataExplorer","dplyr")
+new.packages<-list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
 
 library(randomForest)
 library(DataExplorer)
