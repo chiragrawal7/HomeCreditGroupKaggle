@@ -4,7 +4,6 @@
 
 
 
-
 #Capturing the name of all the data frames loaded here
 data.list<-ls()[sapply(ls(), function(x) class(get(x)))== "data.frame"]
 
@@ -25,30 +24,30 @@ df.eda<-data.frame(dataset=character(),                          #Name of the da
                    IsFactor=logical(),                           # Is it a factor or not
                 stringsAsFactors = F)
 
-initial.eda<-function(df){
+df.eda.temp<-df.eda
+
+initial.eda<-function(df,dfname){
   for(i in 1:ncol(df)){
       
-      df.eda[nrow(df.eda)+1,]<-list(
-                                    deparse(substitute(df)),
+      df.eda.temp[nrow(df.eda.temp)+1,]<-list(
+                                    dfname,
                                     colnames(df[i],do.NULL = T,prefix = "col"),
                                     nrow(df),
                                     sum(is.na(df[,i])),
-                                    (sum(is.na(df[,i]))/nrow(df))*100,
+                                    round((sum(is.na(df[,i]))/nrow(df))*100,digits=0),
                                     class(df[,i]),
                                     is.factor(df[,i]) 
                                     )
 
   }
-  View(df.eda)
+      print(deparse(substitute(df)))
+      df.eda<<-rbind(df.eda,df.eda.temp)
+      df.eda.temp<-NULL
+    
 }
 
 
 for(j in 1:length(data.list)){
-    initial.eda(get(data.list[j]))  
+    initial.eda(get(data.list[j]),data.list[j])  
 }
-
 View(df.eda)
-
-initial.eda(application_train)
-
-?similar
