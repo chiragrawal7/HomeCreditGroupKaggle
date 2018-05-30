@@ -23,3 +23,7 @@ installment_payments<-read.csv("./data/installments_payments.csv")
 credit_card_balance<-read.csv("./data/credit_card_balance.csv")
 bureau<-read.csv("./data/bureau.csv")
 application_test<-read.csv("./data/application_test.csv")
+
+
+
+

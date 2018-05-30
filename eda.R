@@ -1,6 +1,14 @@
 
 # Extensive EDA Script - In this script, I would just try to perform extensive EDA of 
-#                         data sets
+#                         data sets. The eda includes the following:
+
+#1 Variable Identification
+#2 Univariate Analysis
+#3 Bi-variate Analysis
+#4 Missing values treatment
+#5 Outlier treatment
+#6 Variable transformation
+#7 Variable creation
 
 
 
@@ -27,27 +35,30 @@ df.eda<-data.frame(dataset=character(),                          #Name of the da
 df.eda.temp<-df.eda
 
 initial.eda<-function(df,dfname){
-  for(i in 1:ncol(df)){
-      
-      df.eda.temp[nrow(df.eda.temp)+1,]<-list(
-                                    dfname,
-                                    colnames(df[i],do.NULL = T,prefix = "col"),
-                                    nrow(df),
-                                    sum(is.na(df[,i])),
-                                    round((sum(is.na(df[,i]))/nrow(df))*100,digits=0),
-                                    class(df[,i]),
-                                    is.factor(df[,i]) 
-                                    )
-
-  }
-      print(deparse(substitute(df)))
-      df.eda<<-rbind(df.eda,df.eda.temp)
-      df.eda.temp<-NULL
+for(i in 1:ncol(df)){
     
+    df.eda.temp[nrow(df.eda.temp)+1,]<-list(
+                                  dfname,
+                                  colnames(df[i],do.NULL = T,prefix = "col"),
+                                  nrow(df),
+                                  sum(is.na(df[,i])),
+                                  round((sum(is.na(df[,i]))/nrow(df))*100,digits=0),
+                                  class(df[,i]),
+                                  is.factor(df[,i]) 
+                                  )
+
+}
+    print(deparse(substitute(df)))
+    df.eda<<-rbind(df.eda,df.eda.temp)
+    df.eda.temp<-NULL
+  
 }
 
 
 for(j in 1:length(data.list)){
     initial.eda(get(data.list[j]),data.list[j])  
 }
-View(df.eda)
+
+
+
+sessionInfo()
